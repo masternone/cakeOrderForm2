@@ -8,20 +8,7 @@
       </a>
     </md-nav-list>
   </md-sidenav>
-  <md-toolbar color="primary">
-    <button md-icon-button (click)="sidenav.open()">
-      <md-icon>menu</md-icon>
-    </button>
-    {{title}}
-    <div class="flex-stretch"></div>
-    <button md-icon-button class="btn-lg align-end">
-      <md-icon>email</md-icon>
-    </button>
-    <button md-icon-button class="btn-lg align-end">
-      <md-icon>print</md-icon>
-    </button>
-    <button md-fab (click)="formShowing=!formShowing">
-      <md-icon>add</md-icon>
-    </button>
-  </md-toolbar>
+  <app-title-bar [sidenav]="sidenav" (showFormToggle)="showFormToggle()"></app-title-bar>
+  -->{{showForm}}<--
+  <app-cake-order [showForm]="showForm"></app-cake-order>
 </md-sidenav-layout>
