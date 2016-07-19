@@ -3,6 +3,7 @@ import {MdButton} from '@angular2-material/button';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MdToolbar} from '@angular2-material/toolbar';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
              moduleId: module.id,
@@ -10,7 +11,7 @@ import {MdToolbar} from '@angular2-material/toolbar';
              inputs: ['sidenav'],
              templateUrl: 'title-bar.component.html',
              styleUrls: ['title-bar.component.css'],
-             directives: [MdButton, MdIcon, MD_LIST_DIRECTIVES, MdToolbar],
+             directives: [MdButton, MdIcon, MD_LIST_DIRECTIVES, MdToolbar, ROUTER_DIRECTIVES],
              providers: [MdIconRegistry]
            })
 export class TitleBarComponent implements OnInit {
@@ -23,9 +24,5 @@ export class TitleBarComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  onToggle() {
-    this.showFormToggle.emit(null);
   }
 }

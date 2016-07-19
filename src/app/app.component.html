@@ -8,7 +8,6 @@
       </a>
     </md-nav-list>
   </md-sidenav>
-  <app-title-bar [sidenav]="sidenav" (showFormToggle)="showFormToggle()"></app-title-bar>
-  -->{{showForm}}<--
-  <app-cake-order [showForm]="showForm"></app-cake-order>
+  <app-title-bar [sidenav]="sidenav"></app-title-bar>
+  <router-outlet></router-outlet>
 </md-sidenav-layout>

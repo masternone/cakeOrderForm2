@@ -2,7 +2,7 @@
   <button md-icon-button (click)="sidenav.open()">
     <md-icon>menu</md-icon>
   </button>
-  {{title}}
+  <a routerLink="">{{title}}</a>
   <div class="flex-stretch"></div>
   <a href="" md-icon-button class="btn btn-lg">
     <md-icon>email</md-icon>
@@ -10,7 +10,7 @@
   <a href="" md-icon-button class="btn btn-lg">
     <md-icon>print</md-icon>
   </a>
-  <button md-fab (click)="onToggle()">
+  <a button md-fab routerLink="order/new">
     <md-icon>add</md-icon>
-  </button>
+  </a>
 </md-toolbar>
