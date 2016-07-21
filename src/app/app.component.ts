@@ -15,8 +15,6 @@ import {TitleBarComponent} from './title-bar/title-bar.component';
              providers: [MdIconRegistry]
            })
 export class AppComponent {
-  showForm = false;
-
   views: Object[] = [
     {
       name: "My Account",

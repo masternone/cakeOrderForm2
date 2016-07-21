@@ -7,13 +7,20 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
-  '@angular2-material': 'vendor/@angular2-material'
+  '@angular2-material': 'vendor/@angular2-material',
+  'firebase': 'vendor/firebase/firebase.js',
+  'angularfire2': 'vendor/angularfire2'
 };
 
 /** User packages configuration. */
-const packages:any = {};
+const packages: any = {
+  angularfire2: {
+    defaultExtension: 'js',
+    main: 'angularfire2.js'
+  }
+};
 
-const materialPkgs:string[] = [
+const materialPkgs: string[] = [
   'core',
   'button',
   'card',
@@ -62,7 +69,7 @@ const barrels: string[] = [
 
 const cliSystemConfigPackages: any = {};
 barrels.forEach((barrelName: string) => {
-  cliSystemConfigPackages[barrelName] = { main: 'index' };
+  cliSystemConfigPackages[barrelName] = {main: 'index'};
 });
 
 /** Type declaration for ambient System. */
@@ -70,13 +77,13 @@ declare var System: any;
 
 // Apply the CLI SystemJS configuration.
 System.config({
-  map: {
-    '@angular': 'vendor/@angular',
-    'rxjs': 'vendor/rxjs',
-    'main': 'main.js'
-  },
-  packages: cliSystemConfigPackages
-});
+                map: {
+                  '@angular': 'vendor/@angular',
+                  'rxjs': 'vendor/rxjs',
+                  'main': 'main.js'
+                },
+                packages: cliSystemConfigPackages
+              });
 
 // Apply the user's configuration.
-System.config({ map, packages });
+System.config({map, packages});

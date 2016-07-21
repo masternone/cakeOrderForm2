@@ -1,3 +1,10 @@
-<p>
-  primer works!
-</p>
+<div flex flex-wrap layout="row" col="3">
+  <div class="card-wrapper" *ngFor="let primerCard of primerCards | async">
+    <md-card>
+      <md-card-title>{{primerCard.title}}</md-card-title>
+      <md-card-content>
+        <p *ngFor="let item of primerCard.content">{{item}}</p>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

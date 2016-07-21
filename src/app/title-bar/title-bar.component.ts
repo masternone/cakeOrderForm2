@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MdButton} from '@angular2-material/button';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
@@ -16,8 +16,6 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
            })
 export class TitleBarComponent implements OnInit {
   title = 'Cake Order Form 2';
-
-  @Output() showFormToggle = new EventEmitter();
 
   constructor() {
 

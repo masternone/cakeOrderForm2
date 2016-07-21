@@ -1,16 +1,19 @@
-<md-toolbar color="primary">
+<md-toolbar color="primary" flex>
   <button md-icon-button (click)="sidenav.open()">
     <md-icon>menu</md-icon>
   </button>
-  <a routerLink="">{{title}}</a>
-  <div class="flex-stretch"></div>
-  <a href="" md-icon-button class="btn btn-lg">
+  <a routerLink="" class="white no-underline">{{title}}</a>
+  <div flex-item></div>
+  <a href="mailto:disneynuttt@gmail.com" md-icon-button class="btn btn-lg">
     <md-icon>email</md-icon>
   </a>
   <a href="" md-icon-button class="btn btn-lg">
     <md-icon>print</md-icon>
   </a>
-  <a button md-fab routerLink="order/new">
+  <a button md-fab routerLink="order/new" routerLinkActive="hidden">
     <md-icon>add</md-icon>
+  </a>
+  <a button md-fab routerLink="" routerLinkActive="hidden" [routerLinkActiveOptions]="{exact: true}">
+    <md-icon>remove</md-icon>
   </a>
 </md-toolbar>
