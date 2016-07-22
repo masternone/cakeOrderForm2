@@ -17,18 +17,10 @@ import {TitleBarComponent} from './title-bar/title-bar.component';
   providers: [MdIconRegistry]
 })
 export class AppComponent {
-  isLogedIn: boolean = false;
 
-  constructor(private af: AngularFire, private router: Router) {
-    this.af.auth.subscribe(auth => this.isLogedIn = !!auth);
-  }
-
-  public doLogin() {
-    console.log(this.af.auth.login());
-  }
+  constructor(private af: AngularFire, private router: Router) {}
 
   public doLogout() {
-    this.isLogedIn = false;
     this.af.auth.logout();
     this.router.navigate(['']);
   }
