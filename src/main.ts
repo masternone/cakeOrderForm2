@@ -3,6 +3,7 @@ import {enableProdMode} from '@angular/core';
 import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {provideRouter} from '@angular/router';
+import {CanActivateViaAuthGuard} from './app/app.CanActivateViaAuthGuard'
 import {FIREBASE_PROVIDERS, defaultFirebase, AngularFire, AuthMethods, AuthProviders, firebaseAuthConfig} from 'angularfire2';
 
 import {AppRoutes} from './app/app.routes';
@@ -21,9 +22,14 @@ bootstrap(AppComponent, [
     databaseURL: "https://cakeorderform2.firebaseio.com",
     storageBucket: "cakeorderform2.appspot.com",
   }),
+  firebaseAuthConfig(
+  {
+    provider: AuthProviders.Google,
+    method: AuthMethods.Popup
+  }),
   provideRouter(AppRoutes),
+  CanActivateViaAuthGuard,
   HTTP_PROVIDERS,
   disableDeprecatedForms(),
   provideForms()
 ]);
-

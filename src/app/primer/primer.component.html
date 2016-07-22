@@ -1,5 +1,5 @@
-<div flex flex-wrap layout="row" col="3">
-  <div class="card-wrapper" *ngFor="let primerCard of primerCards | async">
+<div flex wrap layout="row" col="3">
+  <div flex layout="column" align="center" class="card-wrapper" *ngFor="let primerCard of primerCards | async">
     <md-card>
       <md-card-title>{{primerCard.title}}</md-card-title>
       <md-card-content>
