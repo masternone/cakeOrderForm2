@@ -1,4 +1,4 @@
-export class primerCard {
+export interface PrimerCard {
   title: string;
   content: string[];
 }

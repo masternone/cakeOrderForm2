@@ -20,9 +20,15 @@ export class AppComponent {
 
   constructor(private af: AngularFire, private router: Router) {}
 
-  public doLogout() {
+  public doLogin(sidenav){
+    this.af.auth.login();
+    sidenav.close();
+  }
+
+  public doLogout(sidenav) {
     this.af.auth.logout();
     this.router.navigate(['']);
+    sidenav.close();
   }
 
   views: Object[] = [

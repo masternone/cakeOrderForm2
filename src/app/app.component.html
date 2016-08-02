@@ -1,10 +1,10 @@
 <md-sidenav-layout fullscreen>
   <md-sidenav #sidenav>
     <md-nav-list>
-      <a *ngIf="!(af.auth | async)" md-list-item (click)="af.auth.login()">
+      <a *ngIf="!(af.auth | async)" md-list-item (click)="doLogin(sidenav)">
         <md-icon md-list-icon>account_box</md-icon>
         <span md-line>Login</span></a>
-      <a *ngIf="af.auth | async" md-list-item (click)="doLogout()">
+      <a *ngIf="af.auth | async" md-list-item (click)="doLogout(sidenav)">
         <md-icon md-list-icon>account_box</md-icon>
         <span md-line>Logout</span></a>
       <a md-list-item *ngFor="let view of views">

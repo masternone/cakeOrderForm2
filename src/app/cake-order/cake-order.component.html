@@ -20,14 +20,101 @@
     </md-card-actions>
   </md-card>
 </div>-->
+<pre>{{cakeOrder | json }}</pre>
 <div class="form">
   <md-card>
     <md-card-title>What type of cake would you like?</md-card-title>
     <md-card-content>
-      <form>
-        <md-input placeholder="Name"></md-input>
-        <md-input placeholder="Flavor"></md-input>
-        <md-input placeholder="Description"></md-input>
+      <!--
+            <form>
+              <md-input placeholder="Name"></md-input>
+              <md-input placeholder="Flavor"></md-input>
+              <md-input placeholder="Description"></md-input>
+            </form>
+      -->
+      <form #f="ngForm" novalidate flex nowrap layout="column" align="start">
+
+        <div class="row" flex nowrap layout="row" align="start" col-sm="3">
+          <div>
+            <md-input placeholder="First Name" name="firstName" [(ngModel)]="cakeOrder.firstName"></md-input>
+          </div>
+          <div>
+            <md-input placeholder="Last Name" name="lastName" [(ngModel)]="cakeOrder.lastName"></md-input>
+          </div>
+        </div>
+        <div class="row" flex wrap layout="row" align="start" col-sm="3">
+          <div>
+            <md-input placeholder="Email" name="email" [(ngModel)]="cakeOrder.email"></md-input>
+          </div>
+          <div>
+            <md-input placeholder="Phone" name="phoneNum" [(ngModel)]="cakeOrder.phoneNum"></md-input>
+          </div>
+        </div>
+        <div class="row" flex nowrap layout="row" align="start" col="2">
+          <div>
+            <md-input placeholder="Address One" name="address1" [(ngModel)]="cakeOrder.address1"></md-input>
+          </div>
+          <div>
+            <md-input placeholder="Address Two" name="address2" [(ngModel)]="cakeOrder.address2"></md-input>
+          </div>
+        </div>
+        <div class="row" flex nowrap layout="row" align="start" col-sm="3">
+          <div>
+            <md-input placeholder="City" name="city" [(ngModel)]="cakeOrder.city"></md-input>
+          </div>
+          <div>
+            <md-input placeholder="State" name="state" [(ngModel)]="cakeOrder.state"></md-input>
+          </div>
+          <div>
+            <md-input placeholder="Zip Code" name="zipcode" [(ngModel)]="cakeOrder.zipcode"></md-input>
+          </div>
+        </div>
+        <div class="row" flex nowrap layout="row" align="end">
+          <h3>Add Layer</h3>
+          <a button md-fab (click)="addLayer();">
+            <md-icon>add</md-icon>
+          </a>
+        </div>
+        <div *ngFor="let layer of cakeOrder.layers" class="row" flex wrap layout="row" align="start" col-sm="3">
+          <!-- TODO: these need to be changed to md-select once ready -->
+          <!-- Layer Size -->
+          <div>
+            <label>Layer Size</label>
+            <select name="layerSize" [(ngModel)]="layer.layerSize">
+              <option *ngFor="let layerSize of layerSizes | async" [value]="layerSize.id">
+                {{layerSize.name}}
+              </option>
+            </select>
+          </div>
+          <!-- Cake Flavor -->
+          <div>
+            <label>Cake Flavor</label>
+            <select name="cakeFlavors" [(ngModel)]="layer.cakeFlavor">
+              <option *ngFor="let cakeFlavor of cakeFlavors | async" [value]="cakeFlavor.id">
+                {{cakeFlavor.name}}
+              </option>
+            </select>
+          </div>
+          <!-- Frosting Flavor -->
+          <div>
+            <label>Frosting Flavor</label>
+            <select name="frostingFlavors" [(ngModel)]="layer.frostingFlavor">
+              <option *ngFor="let frostingFlavor of frostingFlavors | async" [value]="frostingFlavor.id">
+                {{frostingFlavor.name}}
+              </option>
+            </select>
+          </div>
+          <!-- Description and/or additional Notes -->
+          <div style="width: 100%">
+            <label>Description and/or additional Notes</label>
+            <textarea name="description" [(ngModel)]="layer.description"></textarea>
+          </div>
+        </div>
+        <div class="row" flex nowrap layout="row" align="end">
+          <button md-raised-button color="accent" type="submit" (click)="save(f.value, f.valid)">
+            Submit for Review
+          </button>
+        </div>
       </form>
     </md-card-content>
   </md-card>
