@@ -1,24 +1,20 @@
 import {Component} from '@angular/core';
-import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
-import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
-import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router';
-import {AngularFire} from 'angularfire2';
 
-import {TitleBarComponent} from './title-bar/title-bar.component';
+import {Router} from '@angular/router';
+import {AngularFire} from 'angularfire2';
 
 @Component(
 {
-  moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
-  directives: [MdIcon, MD_LIST_DIRECTIVES, MD_SIDENAV_DIRECTIVES, ROUTER_DIRECTIVES, TitleBarComponent],
-  providers: [MdIconRegistry]
+  styleUrls: ['app.component.less']
 })
 export class AppComponent {
 
-  constructor(private af: AngularFire, private router: Router) {}
+  constructor(private af: AngularFire, private router: Router) {
+    console.log(this.af);
+    this.af.auth.subscribe(auth => console.log(auth), error => console.error(error));
+  }
 
   public doLogin(sidenav){
     this.af.auth.login();
