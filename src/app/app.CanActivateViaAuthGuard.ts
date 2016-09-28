@@ -11,6 +11,7 @@ export class CanActivateViaAuthGuard implements CanActivate {
   }
 
   canActivate() {
+    console.log(this.canActivateVal);
     return this.canActivateVal;
   }
 }

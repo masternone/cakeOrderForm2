@@ -3,14 +3,7 @@ import {NgModule, ApplicationRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HttpModule}     from '@angular/http';
-
-import {MdButtonModule} from '@angular2-material/button';
-import {MdCardModule} from '@angular2-material/card';
-import {MdCheckboxModule} from '@angular2-material/checkbox';
-import {MdIconModule} from '@angular2-material/icon';
-import {MdListModule} from '@angular2-material/list';
-import {MdSidenavModule} from '@angular2-material/sidenav';
-import {MdToolbarModule} from '@angular2-material/toolbar';
+import {MaterialModule} from '@angular/material';
 
 import {
 AuthMethods,
@@ -21,7 +14,7 @@ AngularFireModule
 import * as firebase from 'firebase';
 
 import {AppComponent} from './app.component';
-import {AppRoutes} from './app.routes';
+import {appRoutingProviders, AppRoutes} from './app.routes';
 import {CanActivateViaAuthGuard} from './app.CanActivateViaAuthGuard'
 import {TitleBarComponent} from './title-bar/title-bar.component';
 import {PrimerComponent} from './primer/primer.component'
@@ -32,12 +25,12 @@ const myFirebaseConfig = {
   authDomain: "cakeorderform2.firebaseapp.com",
   databaseURL: "https://cakeorderform2.firebaseio.com",
   storageBucket: "cakeorderform2.appspot.com",
-}
+};
 
 const myFirebaseAuthConfig = {
   provider: AuthProviders.Google,
-  method: AuthMethods.Popup
-}
+  method: AuthMethods.Redirect
+};
 
 @NgModule(
 {
@@ -53,19 +46,14 @@ const myFirebaseAuthConfig = {
     FormsModule,
     HttpModule,
 
-    AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig),
+    MaterialModule.forRoot(),
 
-    MdButtonModule,
-    MdCardModule,
-    MdCheckboxModule,
-    MdIconModule,
-    MdListModule,
-    MdSidenavModule,
-    MdToolbarModule,
+    AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig),
 
     AppRoutes
   ],
   providers: [
+    appRoutingProviders,
     CanActivateViaAuthGuard
   ],
   entryComponents: [AppComponent],
