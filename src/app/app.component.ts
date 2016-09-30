@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-// import {Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AngularFire} from 'angularfire2';
 
 @Component(
@@ -11,7 +11,7 @@ import {AngularFire} from 'angularfire2';
 })
 export class AppComponent {
 
-  constructor(private af: AngularFire/*, private router: Router*/) {
+  constructor(private af: AngularFire, private router: Router) {
     console.log('af',af);
     af.auth.subscribe(auth => {
       console.log('auth',auth);
@@ -30,7 +30,7 @@ export class AppComponent {
 
   public doLogout(sidenav) {
     this.af.auth.logout();
-    // this.router.navigate(['']);
+    this.router.navigate(['']);
     sidenav.close();
   }
 

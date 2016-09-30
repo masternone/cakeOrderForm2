@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, ApplicationRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
+// import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HttpModule}     from '@angular/http';
 import {MaterialModule} from '@angular/material';
@@ -14,7 +14,7 @@ AngularFireModule
 import * as firebase from 'firebase';
 
 import {AppComponent} from './app.component';
-import {appRoutingProviders, AppRoutes} from './app.routes';
+import {appRoutingProviders, routing} from './app.routes';
 import {CanActivateViaAuthGuard} from './app.CanActivateViaAuthGuard'
 import {TitleBarComponent} from './title-bar/title-bar.component';
 import {PrimerComponent} from './primer/primer.component'
@@ -42,7 +42,7 @@ const myFirebaseAuthConfig = {
   ],
   imports: [
     BrowserModule,
-    CommonModule,
+    // CommonModule,
     FormsModule,
     HttpModule,
 
@@ -50,7 +50,7 @@ const myFirebaseAuthConfig = {
 
     AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig),
 
-    AppRoutes
+    routing
   ],
   providers: [
     appRoutingProviders,
@@ -59,6 +59,4 @@ const myFirebaseAuthConfig = {
   entryComponents: [AppComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-
-}
+export class AppModule {}
