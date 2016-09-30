@@ -1,0 +1,16 @@
+/* buttons */
+.btn {
+  &.btn-lg {
+    font-size: 36px;
+    line-height: 64px;
+    height: initial;
+    width: 64px;
+
+    md-icon {
+      font-size: inherit;
+      line-height: 0.5;
+      vertical-align: middle;
+      width: 100%
+    }
+  }
+}

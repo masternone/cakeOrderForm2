@@ -1,0 +1,78 @@
+/* Flex */
+@mixin flex($size) {
+  [flex] {
+    &[layout="row"] {
+      &[col-#{$size}] {
+        > * {
+          position: relative;
+          padding: 24px 24px 0 0;
+        }
+      }
+      &[col-#{$size}="1"] {
+        > * {
+          padding: 24px 24px 0;
+          width: 100%;
+        }
+      }
+      &[col-#{$size}="2"] {
+        > * {
+          width: 50%;
+        }
+        > *:nth-child(2n+1) {
+          padding-left: 24px;
+        }
+      }
+      &[col-#{$size}="3"] {
+        > * {
+          width: 33.33%;
+        }
+        > *:nth-child(3n+1) {
+          padding-left: 24px;
+        }
+      }
+    }
+  }
+}
+
+[flex] {
+  display: flex;
+  &[wrap] {
+    flex-wrap: wrap;
+  }
+  &[no-wrap] {
+    flex-wrap: nowrap;
+  }
+  &[layout="row"] {
+    flex-direction: row;
+  }
+  &[layout="column"] {
+    flex-direction: column;
+  }
+  &[align],
+  &[align="start"] {
+    align-items: flex-start;
+  }
+  &[align="center"] {
+    align-items: center;
+  }
+  &[align="end"] {
+    align-items: flex-end;
+  }
+  [flex-item] {
+    flex-grow: 1;
+  }
+  [align],
+  [align="start"] {
+    align-self: flex-start;
+  }
+  [align="center"] {
+    align-self: center;
+  }
+  [align="end"] {
+    align-self: flex-end;
+  }
+}
+@include flex('sm');
+@media (min-width: 600px) {@include flex('md');}
+@media (min-width: 960px) {@include flex('lg');}
+@media (min-width: 1200px) {@include flex('xl');}

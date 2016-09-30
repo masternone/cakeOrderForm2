@@ -1,0 +1,9 @@
+@import '~@angular/material/core/theming/all-theme';
+@include md-core();
+$primary: md-palette($md-blue);
+$accent:  md-palette($md-red, 800, A100, A400);
+$warn:    md-palette($md-pink);
+
+$theme: md-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
