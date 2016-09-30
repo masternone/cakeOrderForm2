@@ -34,7 +34,7 @@
       -->
       <form #f="ngForm" novalidate flex nowrap layout="column" align="start">
 
-        <div class="row" flex nowrap layout="row" align="start" col-sm="3">
+        <div flex nowrap layout="row" align="start" col-sm="3">
           <div>
             <md-input placeholder="First Name" name="firstName" [(ngModel)]="cakeOrder.firstName"></md-input>
           </div>
@@ -42,7 +42,7 @@
             <md-input placeholder="Last Name" name="lastName" [(ngModel)]="cakeOrder.lastName"></md-input>
           </div>
         </div>
-        <div class="row" flex wrap layout="row" align="start" col-sm="3">
+        <div flex wrap layout="row" align="start" col-sm="3">
           <div>
             <md-input placeholder="Email" name="email" [(ngModel)]="cakeOrder.email"></md-input>
           </div>
@@ -50,7 +50,7 @@
             <md-input placeholder="Phone" name="phoneNum" [(ngModel)]="cakeOrder.phoneNum"></md-input>
           </div>
         </div>
-        <div class="row" flex nowrap layout="row" align="start" col="2">
+        <div flex nowrap layout="row" align="start" col-sm="3">
           <div>
             <md-input placeholder="Address One" name="address1" [(ngModel)]="cakeOrder.address1"></md-input>
           </div>
@@ -58,7 +58,7 @@
             <md-input placeholder="Address Two" name="address2" [(ngModel)]="cakeOrder.address2"></md-input>
           </div>
         </div>
-        <div class="row" flex nowrap layout="row" align="start" col-sm="3">
+        <div flex nowrap layout="row" align="start" col-sm="3">
           <div>
             <md-input placeholder="City" name="city" [(ngModel)]="cakeOrder.city"></md-input>
           </div>
@@ -69,13 +69,14 @@
             <md-input placeholder="Zip Code" name="zipcode" [(ngModel)]="cakeOrder.zipcode"></md-input>
           </div>
         </div>
-        <div class="row" flex nowrap layout="row" align="end">
+        <div flex nowrap layout="row" align="end" col-sm>
+          <div flex-item></div>
           <h3>Add Layer</h3>
           <a button md-fab (click)="addLayer();">
             <md-icon>add</md-icon>
           </a>
         </div>
-        <div *ngFor="let layer of cakeOrder.layers" class="row" flex wrap layout="row" align="start" col-sm="3">
+        <div *ngFor="let layer of cakeOrder.layers" flex wrap layout="row" align="start" col-sm="3">
           <!-- TODO: these need to be changed to md-select once ready -->
           <!-- Layer Size -->
           <div>
@@ -110,7 +111,7 @@
             <textarea name="description" [(ngModel)]="layer.description"></textarea>
           </div>
         </div>
-        <div class="row" flex nowrap layout="row" align="end">
+        <div flex nowrap layout="row" align="end">
           <button md-raised-button color="accent" type="submit" (click)="save(f.value, f.valid)">
             Submit for Review
           </button>
