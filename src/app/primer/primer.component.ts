@@ -6,8 +6,8 @@ import {PrimerCard} from './primerCard.interface'
 @Component(
 {
   selector: 'app-primer',
-  templateUrl: 'primer.component.html',
-  styleUrls: ['primer.component.scss']
+  templateUrl: './primer.component.html',
+  styleUrls: ['./primer.component.scss']
 })
 export class PrimerComponent implements OnInit {
   primerCards: FirebaseListObservable<PrimerCard[]>;

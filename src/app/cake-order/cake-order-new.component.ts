@@ -8,8 +8,8 @@ import {CakeOrder, Layer, LayerSize, CakeFlavor, FrostingFlavor} from "./cake-or
 {
   selector: 'app-cake-order',
   inputs: ['showForm'],
-  templateUrl: 'cake-order.component.html',
-  styleUrls: ['cake-order.component.scss'],
+  templateUrl: './cake-order.component.html',
+  styleUrls: ['./cake-order.component.scss'],
 })
 export class CakeOrderNewComponent implements OnInit {
   auth;
