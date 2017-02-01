@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
+import {AngularFire} from 'angularfire2';
+
 @Component({
              selector: 'app-title-bar',
              inputs: ['sidenav'],
@@ -9,7 +11,7 @@ import {Component, OnInit} from '@angular/core';
 export class TitleBarComponent implements OnInit {
   title = 'Cake Order Form 2';
 
-  constructor() {
+  constructor(private af: AngularFire) {
 
   }
 

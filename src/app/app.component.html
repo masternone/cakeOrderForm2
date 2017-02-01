@@ -7,11 +7,13 @@
       <a *ngIf="af.auth | async" md-list-item (click)="doLogout(sidenav)">
         <md-icon md-list-icon>account_box</md-icon>
         <span md-line>Logout</span></a>
-      <a md-list-item *ngFor="let view of views">
-        <md-icon md-list-icon>{{view.icon}}</md-icon>
-        <span md-line>{{view.name}}</span>
-        <span md-line class="secondary">{{view.description}}</span>
-      </a>
+      <div *ngIf="af.auth | async">
+        <a md-list-item *ngFor="let view of views">
+          <md-icon md-list-icon>{{view.icon}}</md-icon>
+          <span md-line>{{view.name}}</span>
+          <span md-line class="secondary">{{view.description}}</span>
+        </a>
+      </div>
     </md-nav-list>
   </md-sidenav>
   <app-title-bar [sidenav]="sidenav"></app-title-bar>

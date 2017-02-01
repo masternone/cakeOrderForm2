@@ -10,10 +10,10 @@
   <a href="" md-icon-button class="btn btn-lg">
     <md-icon>print</md-icon>
   </a>
-  <a button md-fab routerLink="order/new" routerLinkActive="hidden">
+  <a *ngIf="af.auth | async" button md-fab routerLink="order/new" routerLinkActive="hidden">
     <md-icon>add</md-icon>
   </a>
-  <a button md-fab routerLink="" routerLinkActive="hidden" [routerLinkActiveOptions]="{exact: true}">
+  <a *ngIf="af.auth | async" button md-fab routerLink="" routerLinkActive="hidden" [routerLinkActiveOptions]="{exact: true}">
     <md-icon>remove</md-icon>
   </a>
 </md-toolbar>
