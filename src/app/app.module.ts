@@ -1,62 +1,70 @@
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule, ApplicationRef} from '@angular/core';
-// import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {HttpModule}     from '@angular/http';
-import {MaterialModule} from '@angular/material';
+import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
+
+import {AngularFireModule} from 'angularfire2';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import {environment} from '../environments/environment';
 
 import {
-AuthMethods,
-AuthProviders,
-AngularFireModule
-} from 'angularfire2';
-
-import * as firebase from 'firebase';
+  MatButtonModule,
+  MatCardModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatToolbarModule
+} from '@angular/material';
 
 import {AppComponent} from './app.component';
 import {appRoutingProviders, routing} from './app.routes';
 import {CanActivateViaAuthGuard} from './app.CanActivateViaAuthGuard'
-import {TitleBarComponent} from './title-bar/title-bar.component';
-import {PrimerComponent} from './primer/primer.component'
-import {CakeOrderNewComponent} from './cake-order/cake-order-new.component'
+import {TitleBarComponent} from './title-bar';
+import {PrimerComponent} from './primer'
+import {CakeOrderNewComponent} from './cake-order'
 
-const myFirebaseConfig = {
-  apiKey: "AIzaSyClMUeCVSKC1F50BHIH9gjWyoBn1rrpc9o",
-  authDomain: "cakeorderform2.firebaseapp.com",
-  databaseURL: "https://cakeorderform2.firebaseio.com",
-  storageBucket: "cakeorderform2.appspot.com",
-};
-
-const myFirebaseAuthConfig = {
-  provider: AuthProviders.Google,
-  method: AuthMethods.Redirect
-};
 
 @NgModule(
-{
-  declarations: [
-    AppComponent,
-    TitleBarComponent,
-    PrimerComponent,
-    CakeOrderNewComponent
-  ],
-  imports: [
-    BrowserModule,
-    // CommonModule,
-    FormsModule,
-    HttpModule,
+  {
+    declarations: [
+      AppComponent,
+      TitleBarComponent,
+      PrimerComponent,
+      CakeOrderNewComponent
+    ],
+    imports: [
+      BrowserModule,
+      BrowserAnimationsModule,
+      FormsModule,
+      HttpModule,
+      HttpClientModule,
 
-    MaterialModule.forRoot(),
+      MatButtonModule,
+      MatCardModule,
+      MatIconModule,
+      MatInputModule,
+      MatListModule,
+      MatSelectModule,
+      MatSidenavModule,
+      MatToolbarModule,
 
-    AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig),
+      AngularFireModule.initializeApp(environment.firebase),
+      AngularFirestoreModule,
+      AngularFireAuthModule,
 
-    routing
-  ],
-  providers: [
-    appRoutingProviders,
-    CanActivateViaAuthGuard
-  ],
-  entryComponents: [AppComponent],
-  bootstrap: [AppComponent]
-})
-export class AppModule {}
+      routing
+    ],
+    providers: [
+      appRoutingProviders,
+      CanActivateViaAuthGuard
+    ],
+    entryComponents: [AppComponent],
+    bootstrap: [AppComponent]
+  })
+export class AppModule {
+}

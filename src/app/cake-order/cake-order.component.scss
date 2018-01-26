@@ -3,18 +3,27 @@
     &[col-sm] {
       width: 100%;
       > * {
-        padding: 0 24px 0 0 ;
-        md-input {
+        padding: 0 24px 0 0;
+        input {
           width: 100%;
         }
+      }
+      .mat-fab {
+        padding: 0;
       }
     }
   }
 }
 
-[md-fab] {
-  md-icon {
+.md-fab {
+  mat-icon {
     color: inherit;
     padding: 15px 14px;
+  }
+}
+
+form {
+  div:last-child{
+    padding-top: 1.25em;
   }
 }

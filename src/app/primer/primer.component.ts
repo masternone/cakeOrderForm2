@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
-import {PrimerCard} from './primerCard.interface'
+import { AngularFirestore } from 'angularfire2/firestore';
+import {Observable} from 'rxjs/Observable';
 
 @Component(
 {
@@ -10,10 +10,10 @@ import {PrimerCard} from './primerCard.interface'
   styleUrls: ['./primer.component.scss']
 })
 export class PrimerComponent implements OnInit {
-  primerCards: FirebaseListObservable<PrimerCard[]>;
+  primerCards: Observable<any[]>;
 
-  constructor(af: AngularFire) {
-    this.primerCards = af.database.list('/PrimerCards');
+  constructor(db: AngularFirestore) {
+    this.primerCards = db.collection('/PrimerCards').valueChanges();
   }
 
   ngOnInit() {

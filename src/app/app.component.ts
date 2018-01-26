@@ -1,44 +1,43 @@
 import {Component} from '@angular/core';
 
 import {Router} from '@angular/router';
-import {AngularFire} from 'angularfire2';
+import {AngularFireAuth} from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 
 @Component(
-{
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
+  {
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
+  })
 export class AppComponent {
+  views = [
+    {
+      name: 'My Account',
+      description: 'Edit my account information',
+      icon: 'assignment ind'
+    }
+  ];
 
-  constructor(private af: AngularFire, private router: Router) {
-    console.log('af',af);
-    af.auth.subscribe(auth => {
-      console.log('auth',auth);
-      if(auth) {
+  constructor(public afAuth: AngularFireAuth, private router: Router) {
+    afAuth.authState.subscribe(auth => {
+      if (auth) {
         console.log('something good');
       } else {
         console.log('something bad');
       }
     }, error => console.error(error));
+
   }
 
   public doLogin(sidenav) {
-    this.af.auth.login();
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     sidenav.close();
   }
 
   public doLogout(sidenav) {
-    this.af.auth.logout();
+    this.afAuth.auth.signOut();
     this.router.navigate(['']);
     sidenav.close();
   }
-
-  views: Object[] = [
-    {
-      name: "My Account",
-      description: "Edit my account information",
-      icon: "assignment ind"
-    }
-  ];
 }

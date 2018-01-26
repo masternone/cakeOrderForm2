@@ -1,34 +1,36 @@
 import {Component, OnInit} from '@angular/core';
 
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {Observable} from 'rxjs/Observable';
+import {AngularFireAuth} from 'angularfire2/auth';
 
-import {CakeOrder, Layer, LayerSize, CakeFlavor, FrostingFlavor} from "./cake-order.interface";
+import {CakeOrder, Layer, LayerSize, CakeFlavor, FrostingFlavor} from './cake-order.interface';
 
 @Component(
-{
-  selector: 'app-cake-order',
-  inputs: ['showForm'],
-  templateUrl: './cake-order.component.html',
-  styleUrls: ['./cake-order.component.scss'],
-})
+  {
+    selector: 'app-cake-order',
+    // inputs: ['showForm'],
+    templateUrl: './cake-order.component.html',
+    styleUrls: ['./cake-order.component.scss'],
+  })
+// @Inputs('showForm')
 export class CakeOrderNewComponent implements OnInit {
   auth;
   cakeOrder: CakeOrder;
-  firstName:string = '';
-  layerSizes: FirebaseListObservable<LayerSize[]>;
-  cakeFlavors: FirebaseListObservable<CakeFlavor[]>;
-  frostingFlavors: FirebaseListObservable<FrostingFlavor[]>;
+  firstName = '';
+  layerSizes: Observable<any[]>;
+  cakeFlavors: Observable<any[]>;
+  frostingFlavors: Observable<any[]>;
 
-  constructor(private af: AngularFire) {
-    af.auth.subscribe(auth => this.auth = auth.auth);
-    // console.log(this.auth);
-    this.layerSizes = af.database.list('/LayerSizes');
-    this.cakeFlavors = af.database.list('/CakeFlavors');
-    this.frostingFlavors = af.database.list('/FrostingFlavors');
+  constructor(private db: AngularFirestore, public afAuth: AngularFireAuth) {
+    afAuth.authState.subscribe(auth => this.auth = auth);
+    this.layerSizes = db.collection('/LayerSizes').valueChanges();
+    this.cakeFlavors = db.collection('/CakeFlavors').valueChanges();
+    this.frostingFlavors = db.collection('/FrostingFlavors').valueChanges();
   }
 
   public addLayer() {
-    let newLayer:Layer = {
+    let newLayer: Layer = {
       id: null,
       layerSize: 0,
       cakeFlavor: 0,
@@ -41,10 +43,10 @@ export class CakeOrderNewComponent implements OnInit {
   ngOnInit() {
     this.cakeOrder = {
       id: null,
-      uid: this.auth.uid, //This should be pulled from the user object
+      uid: this.auth.uid, // This should be pulled from the user object
       firstName: this.firstName,
       lastName: '',
-      email: this.auth.email, //This should be pulled from the user object
+      email: this.auth.email, // This should be pulled from the user object
       phoneNum: '',
       address1: '',
       address2: '',

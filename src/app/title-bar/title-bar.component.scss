@@ -1,4 +1,4 @@
-[md-fab] {
+.mat-fab {
   height: 50px;
   width: 50px;
   position: absolute;
@@ -6,8 +6,13 @@
   top: 40px;
   z-index: 1;
 
-  md-icon {
-    padding: 12px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .mat-button-wrapper{
+    padding: 0;
+    line-height: 1;
   }
 }
 

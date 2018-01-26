@@ -15,16 +15,20 @@
 }
 
 /* Color */
-@import 'styles-source/color';
+@import './styles-source/color';
 
 /* Text */
-@import 'styles-source/text';
+@import './styles-source/text';
 
 /* Flex */
-@import 'styles-source/flex';
+@import './styles-source/flex';
 
 /* Button */
-@import 'styles-source/button';
+@import './styles-source/button';
 
-/* Material Design Theme */
-@import 'styles-source/theme';
+/*
+!* Material Design Theme *!
+@import './styles-source/theme';
+*/
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";

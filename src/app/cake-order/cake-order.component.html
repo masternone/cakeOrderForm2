@@ -1,122 +1,89 @@
-<!--<div class="form" *ngIf="showForm">
-  <md-card>
-    <md-card-title>Create your dog's profile</md-card-title>
-    <md-card-content>
-      <form>
-        <md-input placeholder="Name"></md-input>
-        <md-input placeholder="Favorite toy"></md-input>
-        <md-input placeholder="Description"></md-input>
-        <md-radio-group>
-          <md-radio-button value="Looking for love">Looking for love</md-radio-button>
-          <md-radio-button value="Just browsing">Just browsing</md-radio-button>
-        </md-radio-group>
-        <div>
-          <md-checkbox indeterminate="true">Is a good dog</md-checkbox>
-        </div>
-      </form>
-    </md-card-content>
-    <md-card-actions align="end">
-      <button md-raised-button color="accent">POST</button>
-    </md-card-actions>
-  </md-card>
-</div>-->
 <pre>{{cakeOrder | json }}</pre>
 <div class="form">
-  <md-card>
-    <md-card-title>What type of cake would you like?</md-card-title>
-    <md-card-content>
-      <!--
-            <form>
-              <md-input placeholder="Name"></md-input>
-              <md-input placeholder="Flavor"></md-input>
-              <md-input placeholder="Description"></md-input>
-            </form>
-      -->
+  <mat-card>
+    <mat-card-title>What type of cake would you like?</mat-card-title>
+    <mat-card-content>
       <form #f="ngForm" novalidate flex nowrap layout="column" align="start">
 
         <div flex nowrap layout="row" align="start" col-sm="3">
-          <div>
-            <md-input placeholder="First Name" name="firstName" [(ngModel)]="cakeOrder.firstName"></md-input>
-          </div>
-          <div>
-            <md-input placeholder="Last Name" name="lastName" [(ngModel)]="cakeOrder.lastName"></md-input>
-          </div>
+          <mat-form-field>
+            <input matInput placeholder="First Name" name="firstName" [(ngModel)]="cakeOrder.firstName"/>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Last Name" name="lastName" [(ngModel)]="cakeOrder.lastName"/>
+          </mat-form-field>
         </div>
         <div flex wrap layout="row" align="start" col-sm="3">
-          <div>
-            <md-input placeholder="Email" name="email" [(ngModel)]="cakeOrder.email"></md-input>
-          </div>
-          <div>
-            <md-input placeholder="Phone" name="phoneNum" [(ngModel)]="cakeOrder.phoneNum"></md-input>
-          </div>
+          <mat-form-field>
+            <input matInput placeholder="Email" name="email" [(ngModel)]="cakeOrder.email"/>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Phone" name="phoneNum" [(ngModel)]="cakeOrder.phoneNum"/>
+          </mat-form-field>
         </div>
         <div flex nowrap layout="row" align="start" col-sm="3">
-          <div>
-            <md-input placeholder="Address One" name="address1" [(ngModel)]="cakeOrder.address1"></md-input>
-          </div>
-          <div>
-            <md-input placeholder="Address Two" name="address2" [(ngModel)]="cakeOrder.address2"></md-input>
-          </div>
+          <mat-form-field>
+            <input matInput placeholder="Address One" name="address1" [(ngModel)]="cakeOrder.address1"/>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Two" name="address2" [(ngModel)]="cakeOrder.address2"/>
+          </mat-form-field>
         </div>
         <div flex nowrap layout="row" align="start" col-sm="3">
-          <div>
-            <md-input placeholder="City" name="city" [(ngModel)]="cakeOrder.city"></md-input>
-          </div>
-          <div>
-            <md-input placeholder="State" name="state" [(ngModel)]="cakeOrder.state"></md-input>
-          </div>
-          <div>
-            <md-input placeholder="Zip Code" name="zipcode" [(ngModel)]="cakeOrder.zipcode"></md-input>
-          </div>
+          <mat-form-field>
+            <input matInput placeholder="City" name="city" [(ngModel)]="cakeOrder.city"/>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="State" name="state" [(ngModel)]="cakeOrder.state"/>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Zip Code" name="zipcode" [(ngModel)]="cakeOrder.zipcode"/>
+          </mat-form-field>
+        </div>
+        <div *ngFor="let layer of cakeOrder.layers" flex wrap layout="row" align="start" col-sm="3">
+          <!-- Layer Size -->
+          <mat-form-field>
+            <mat-select placeholder="Layer Size" name="layerSize" [(ngModel)]="layer.layerSize">
+              <mat-option *ngFor="let layerSize of layerSizes | async" [value]="layerSize.id">
+                {{layerSize.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- Cake Flavor -->
+          <mat-form-field>
+            <mat-select placeholder="Cake Flavor" name="cakeFlavor" [(ngModel)]="layer.cakeFlavor">
+              <mat-option *ngFor="let cakeFlavor of cakeFlavors | async" [value]="cakeFlavor.id">
+                {{cakeFlavor.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- Frosting Flavor -->
+          <mat-form-field>
+            <mat-select placeholder="Frosting Flavor" name="frostingFlavors" [(ngModel)]="layer.frostingFlavor">
+              <mat-option *ngFor="let frostingFlavor of frostingFlavors | async" [value]="frostingFlavor.id">
+                {{frostingFlavor.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- Description and/or additional Notes -->
+          <mat-form-field>
+            <textarea matInput placeholder="Description and/or additional Notes"
+                      [(ngModel)]="layer.description"></textarea>
+          </mat-form-field>
         </div>
         <div class="white" flex nowrap layout="row" align="end" col-sm>
           <div flex-item></div>
           <h3 class="black">Add Layer</h3>
-          <a button md-fab (click)="addLayer();">
-            <md-icon>add</md-icon>
+          <a mat-fab (click)="addLayer();">
+            <mat-icon>add</mat-icon>
           </a>
         </div>
-        <div *ngFor="let layer of cakeOrder.layers" flex wrap layout="row" align="start" col-sm="3">
-          <!-- TODO: these need to be changed to md-select once ready -->
-          <!-- Layer Size -->
-          <div>
-            <label>Layer Size</label>
-            <select name="layerSize" [(ngModel)]="layer.layerSize">
-              <option *ngFor="let layerSize of layerSizes | async" [value]="layerSize.id">
-                {{layerSize.name}}
-              </option>
-            </select>
-          </div>
-          <!-- Cake Flavor -->
-          <div>
-            <label>Cake Flavor</label>
-            <select name="cakeFlavors" [(ngModel)]="layer.cakeFlavor">
-              <option *ngFor="let cakeFlavor of cakeFlavors | async" [value]="cakeFlavor.id">
-                {{cakeFlavor.name}}
-              </option>
-            </select>
-          </div>
-          <!-- Frosting Flavor -->
-          <div>
-            <label>Frosting Flavor</label>
-            <select name="frostingFlavors" [(ngModel)]="layer.frostingFlavor">
-              <option *ngFor="let frostingFlavor of frostingFlavors | async" [value]="frostingFlavor.id">
-                {{frostingFlavor.name}}
-              </option>
-            </select>
-          </div>
-          <!-- Description and/or additional Notes -->
-          <div style="width: 100%">
-            <label>Description and/or additional Notes</label>
-            <textarea name="description" [(ngModel)]="layer.description"></textarea>
-          </div>
-        </div>
         <div flex nowrap layout="row" align="end">
-          <button md-raised-button color="accent" type="submit" (click)="save(f.value, f.valid)">
+          <button mat-raised-button color="accent" type="submit" (click)="save(f.value, f.valid)">
             Submit for Review
           </button>
         </div>
       </form>
-    </md-card-content>
-  </md-card>
+    </mat-card-content>
+  </mat-card>
 </div>
