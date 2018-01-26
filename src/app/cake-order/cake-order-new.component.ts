@@ -1,32 +1,57 @@
 import {Component, OnInit} from '@angular/core';
 
-import {AngularFirestore} from 'angularfire2/firestore';
-import {Observable} from 'rxjs/Observable';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import {Observable} from 'rxjs/Observable';
 
-import {CakeOrder, Layer, LayerSize, CakeFlavor, FrostingFlavor} from './cake-order.interface';
+import {CakeOrder, Layer, LayerSizeId, LayerSize, CakeFlavorId, CakeFlavor, FrostingFlavorId, FrostingFlavor} from './cake-order.interface';
 
 @Component(
   {
     selector: 'app-cake-order',
-    // inputs: ['showForm'],
     templateUrl: './cake-order.component.html',
     styleUrls: ['./cake-order.component.scss'],
   })
-// @Inputs('showForm')
 export class CakeOrderNewComponent implements OnInit {
   auth;
   cakeOrder: CakeOrder;
   firstName = '';
-  layerSizes: Observable<any[]>;
-  cakeFlavors: Observable<any[]>;
-  frostingFlavors: Observable<any[]>;
+  layerSizesCollection: AngularFirestoreCollection<LayerSize>;
+  layerSizes: Observable<LayerSizeId[]>;
+  cakeFlavorsCollection: AngularFirestoreCollection<CakeFlavor>;
+  cakeFlavors: Observable<CakeFlavorId[]>;
+  frostingFlavorsCollection: AngularFirestoreCollection<FrostingFlavor>;
+  frostingFlavors: Observable<FrostingFlavorId[]>;
 
   constructor(private db: AngularFirestore, public afAuth: AngularFireAuth) {
     afAuth.authState.subscribe(auth => this.auth = auth);
-    this.layerSizes = db.collection('/LayerSizes').valueChanges();
-    this.cakeFlavors = db.collection('/CakeFlavors').valueChanges();
-    this.frostingFlavors = db.collection('/FrostingFlavors').valueChanges();
+
+    this.layerSizesCollection = db.collection<LayerSize>('/LayerSizes');
+    this.layerSizes = this.layerSizesCollection.snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as LayerSize;
+        const id = a.payload.doc.id;
+        return {id, ...data};
+      });
+    });
+
+    this.cakeFlavorsCollection = db.collection<CakeFlavor>('/CakeFlavors');
+    this.cakeFlavors = this.cakeFlavorsCollection.snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as CakeFlavor;
+        const id = a.payload.doc.id;
+        return {id, ...data};
+      });
+    });
+
+    this.frostingFlavorsCollection = db.collection<FrostingFlavor>('/FrostingFlavors');
+    this.frostingFlavors = this.frostingFlavorsCollection.snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as FrostingFlavor;
+        const id = a.payload.doc.id;
+        return {id, ...data};
+      });
+    });
   }
 
   public addLayer() {

@@ -13,6 +13,7 @@ export interface CakeOrder {
   paymentMethod: string;
   layers: Layer[];
 }
+
 export interface Layer {
   id: string;
   layerSize: number;
@@ -22,21 +23,30 @@ export interface Layer {
 }
 
 export interface LayerSize {
-  id: number,
   name: string,
   cost: number
 }
 
-export interface CakeFlavor{
-  id: number,
+export interface LayerSizeId extends LayerSize {
+  id: string;
+}
+
+export interface CakeFlavor {
   name: string,
   cost: number,
   display: string
 }
 
+export interface CakeFlavorId extends CakeFlavor {
+  id: string;
+}
+
 export interface FrostingFlavor {
-  id: number,
   name: string,
   cost: number,
   display: string
+}
+
+export interface FrostingFlavorId extends FrostingFlavor {
+  id: string;
 }
