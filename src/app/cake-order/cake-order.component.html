@@ -1,75 +1,104 @@
 <pre>{{cakeOrder | json }}</pre>
+<pre>{{cakeOrderForm.controls['layers'].controls.length }}</pre>
+<pre>{{layers.controls.length }}</pre>
 <div class="form">
   <mat-card>
     <mat-card-title>What type of cake would you like?</mat-card-title>
     <mat-card-content>
-      <form #f="ngForm" novalidate flex nowrap layout="column" align="start">
+      <form [formGroup]="cakeOrderForm" novalidate flex nowrap layout="column" align="start">
 
         <div flex nowrap layout="row" align="start" col-sm="3">
           <mat-form-field>
-            <input matInput placeholder="First Name" name="firstName" [(ngModel)]="cakeOrder.firstName" required/>
+            <input matInput placeholder="First Name" formControlName="firstName" required/>
+            <mat-error *ngIf="cakeOrderForm.controls['firstName'].hasError('required')">
+              First Name is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Last Name" name="lastName" [(ngModel)]="cakeOrder.lastName" required/>
+            <input matInput placeholder="Last Name" formControlName="lastName" required/>
+            <mat-error *ngIf="cakeOrderForm.controls['lastName'].hasError('required')">
+              Last Name is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </div>
         <div flex wrap layout="row" align="start" col-sm="3">
           <mat-form-field>
-            <input matInput placeholder="Email" name="email" [(ngModel)]="cakeOrder.email" required/>
+            <input matInput placeholder="Email" formControlName="email" required/>
+            <mat-error *ngIf="cakeOrderForm.controls['email'].hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="cakeOrderForm.controls['email'].hasError('email')">
+              Email is <strong>not valid format</strong>
+            </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Phone" name="phoneNum" [(ngModel)]="cakeOrder.phoneNum" required/>
+            <input matInput placeholder="Phone" formControlName="phoneNum" required/>
+            <mat-error *ngIf="cakeOrderForm.controls['phoneNum'].hasError('required')">
+              Phone is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </div>
         <div flex nowrap layout="row" align="start" col-sm="3">
           <mat-form-field>
-            <input matInput placeholder="Address One" name="address1" [(ngModel)]="cakeOrder.address1"/>
+            <input matInput placeholder="Address One" formControlName="address1"/>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Address Two" name="address2" [(ngModel)]="cakeOrder.address2"/>
+            <input matInput placeholder="Address Two" formControlName="address2"/>
           </mat-form-field>
         </div>
         <div flex nowrap layout="row" align="start" col-sm="3">
           <mat-form-field>
-            <input matInput placeholder="City" name="city" [(ngModel)]="cakeOrder.city"/>
+            <input matInput placeholder="City" formControlName="city"/>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="State" name="state" [(ngModel)]="cakeOrder.state"/>
+            <input matInput placeholder="State" formControlName="state"/>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Zip Code" name="zipcode" [(ngModel)]="cakeOrder.zipcode"/>
+            <input matInput placeholder="Zip Code" formControlName="zipcode"/>
           </mat-form-field>
         </div>
-        <div *ngFor="let layer of cakeOrder.layers" flex wrap layout="row" align="start" col-sm="3">
-          <!-- Layer Size -->
-          <mat-form-field>
-            <mat-select placeholder="Layer Size" [(value)]="layer.layerSize" required="true">
-              <mat-option *ngFor="let layerSize of layerSizes | async" [value]="layerSize.id">
-                {{layerSize.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <!-- Cake Flavor -->
-          <mat-form-field>
-            <mat-select placeholder="Cake Flavor" name="cakeFlavor" [(ngModel)]="layer.cakeFlavor" required="true">
-              <mat-option *ngFor="let cakeFlavor of cakeFlavors | async" [value]="cakeFlavor.id">
-                {{cakeFlavor.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <!-- Frosting Flavor -->
-          <mat-form-field>
-            <mat-select placeholder="Frosting Flavor" [(value)]="layer.frostingFlavor" required="true">
-              <mat-option *ngFor="let frostingFlavor of frostingFlavors | async" [value]="frostingFlavor.id">
-                {{frostingFlavor.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <!-- Description and/or additional Notes -->
-          <mat-form-field style="width: 100%;">
+        <div formArrayName="layers" flex wrap layout="row" align="start" col-sm>
+          <ng-container *ngIf="(layerSizes$ | async) as layerSizes">
+            <ng-container *ngIf="(cakeFlavors$ | async) as cakeFlavors">
+              <ng-container *ngIf="(frostingFlavors$ | async) as frostingFlavors">
+                <div *ngFor="let layer of layers.controls; let i=index" [formGroupName]="i" flex wrap layout="row"
+                     align="start" col-sm="3" no-padding>
+                  <!-- Layer Size -->
+                  <mat-form-field>
+                    <mat-select placeholder="Layer Size" formControlName="layerSize" required>
+                      <mat-option>option 1</mat-option>
+                      <mat-option>option 2</mat-option>
+                      <mat-option *ngFor="let layerSize of layerSizes" [value]="layerSize.id">
+                        {{layerSize.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- Cake Flavor -->
+                  <mat-form-field>
+                    <mat-select placeholder="Cake Flavor" formControlName="cakeFlavor" required>
+                      <mat-option *ngFor="let cakeFlavor of cakeFlavors" [value]="cakeFlavor.id">
+                        {{cakeFlavor.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- Frosting Flavor -->
+                  <mat-form-field>
+                    <mat-select placeholder="Frosting Flavor" formControlName="frostingFlavor" required>
+                      <mat-option *ngFor="let frostingFlavor of frostingFlavors" [value]="frostingFlavor.id">
+                        {{frostingFlavor.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- Description and/or additional Notes -->
+                  <mat-form-field style="width: 100%;">
             <textarea matInput placeholder="Description and/or additional Notes"
-                      [(ngModel)]="layer.description" name="Description"></textarea>
-          </mat-form-field>
+                      formControlName="description" matTextareaAutosize matAutosizeMinRows="1"
+                      matAutosizeMaxRows="5"></textarea>
+                  </mat-form-field>
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
         </div>
         <div class="white" flex nowrap layout="row" align="end" col-sm>
           <div flex-item></div>
@@ -79,7 +108,7 @@
           </a>
         </div>
         <div flex nowrap layout="row" align="end">
-          <button mat-raised-button color="accent" type="submit" (click)="save(f.value, f.valid)">
+          <button mat-raised-button color="accent" type="submit" (click)="save()">
             Submit for Review
           </button>
         </div>

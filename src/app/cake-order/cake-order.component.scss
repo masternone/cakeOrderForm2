@@ -8,6 +8,9 @@
           width: 100%;
         }
       }
+      > [no-padding]{
+        padding: 0;
+      }
       .mat-fab {
         padding: 0;
       }
